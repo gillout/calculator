@@ -79,7 +79,6 @@ class AppController
                 break;
             default;
         }
-        // TODO: implémenter la méthode
         $this->index();
     }
 }
