@@ -77,9 +77,6 @@ class AppController
             case 'clear';
                 $this->manager->reset();
                 break;
-            case '';
-                var_dump('vide');
-                break;
             default;
         }
         // TODO: implémenter la méthode
