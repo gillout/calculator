@@ -96,12 +96,11 @@ class CalculatorManager
      */
     public function reset()
     {
-        session_destroy();
-//        $this->calc->setResult(Calculator::RESULT_STATE);
-//        $this->calc->setInput('');
-//        $this->calc->setAccumulator(Calculator::INIT_VALUE);
-//        $this->calc->setOperator(Calculator::OPERATOR_INIT_VALUE);
-//        $this->calc->setState(Calculator::ACCUMULATE_STATE);
+        $this->calc->setResult(Calculator::RESULT_STATE);
+        $this->calc->setInput('');
+        $this->calc->setAccumulator(Calculator::INIT_VALUE);
+        $this->calc->setOperator(Calculator::OPERATOR_INIT_VALUE);
+        $this->calc->setState(Calculator::ACCUMULATE_STATE);
     }
 
 }

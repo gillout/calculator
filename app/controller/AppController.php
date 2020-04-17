@@ -54,17 +54,23 @@ class AppController
      */
     public function error(string $input)
     {
+        $this->index($this->manager->getAccumulator(), $input);
     }
 
     /**
      * Ajoute la valeur à l'accumulateur
      * @param string $value valeur numérique
+     * @throws Exception
      */
     public function accumulate(string $value)
     {
-        $this->manager->append($value);
-        $chaine = $this->manager->getAccumulator();
-        $this->index($chaine);
+        try {
+            $this->manager->append($value);
+            $chaine = $this->manager->getAccumulator();
+            $this->index($chaine);
+        } catch(Exception $e) {
+            $this->error($e->getMessage());
+        }
     }
 
     /**
