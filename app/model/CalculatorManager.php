@@ -5,7 +5,6 @@ namespace App\Model;
 
 use App\Helper\NumericHelper;
 use Exception;
-use const http\Client\Curl\Versions\CURL;
 
 /**
  * Classe CalculatorManager, pilote la calculatrice.

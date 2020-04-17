@@ -39,13 +39,12 @@ class AppController
 
     /**
      * Affiche la calculette
-     * @param string $result
-     * @param string $inputs
      */
-    public function index(string $result = '', string $inputs = '')
+    public function index()
     {
+        $result = $this->manager->getAccumulator();
+        $inputs = $this->manager->getInput();
         $this->render($result, $inputs);
-//        $this->render('Afin qu\'elle affiche le résultat désiré', 'Modifier la méthode index');
     }
 
     /**
@@ -54,7 +53,7 @@ class AppController
      */
     public function error(string $input)
     {
-        $this->index($this->manager->getAccumulator(), $input);
+        $this->render($this->manager->getAccumulator(), $input);
     }
 
     /**
