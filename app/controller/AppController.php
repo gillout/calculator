@@ -65,9 +65,8 @@ class AppController
     {
         try {
             $this->manager->append($value);
-            $chaine = $this->manager->getAccumulator();
-            $this->index($chaine);
-        } catch(Exception $e) {
+            $this->index();
+        } catch (Exception $e) {
             $this->error($e->getMessage());
         }
     }
@@ -75,15 +74,46 @@ class AppController
     /**
      * Lance une action (opération, égal, pourcentage, ...)
      * @param string $action
+     * @throws Exception
      */
     public function action(string $action)
     {
-        switch($action) {
-            case 'clear';
+        $result = '';
+        $input = '';
+        switch ($action) {
+            case 'clear':
                 $this->manager->reset();
+                $result = $this->manager->getResult();
                 break;
-            default;
+            case 'plus':
+                $this->manager->operator(Calculator::PLUS);
+                $result = $this->manager->getResult();
+                $input = $this->manager->getInput();
+                break;
+            case 'minus':
+                $this->manager->operator(Calculator::MINUS);
+                $result = $this->manager->getResult();
+                $input = $this->manager->getInput();
+                break;
+            case 'times':
+                $this->manager->operator(Calculator::TIMES);
+                $result = $this->manager->getResult();
+                $input = $this->manager->getInput();
+                break;
+            case 'divide':
+                $this->manager->operator(Calculator::DIVIDE);
+                $result = $this->manager->getResult();
+                $input = $this->manager->getInput();
+                break;
+            case 'equals':
+                $this->manager->calculate();
+                $result = $this->manager->getResult();
+                $input =$this->manager->getInput();
+                break;
+            default:
+                throw new Exception('La fonction n\'est pas encore implémentée');
         }
-        $this->index();
+        $this->render($result, $input);
     }
+
 }

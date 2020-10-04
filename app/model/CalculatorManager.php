@@ -95,11 +95,50 @@ class CalculatorManager
      */
     public function reset()
     {
-        $this->calc->setResult(Calculator::RESULT_STATE);
+        $this->calc->setResult(Calculator::INIT_VALUE);
         $this->calc->setInput('');
         $this->calc->setAccumulator(Calculator::INIT_VALUE);
         $this->calc->setOperator(Calculator::OPERATOR_INIT_VALUE);
         $this->calc->setState(Calculator::ACCUMULATE_STATE);
+    }
+
+    /**
+     * @param $value
+     * @throws Exception
+     */
+    public function accuToResult($value)
+    {
+        $result = $this->calc->getAccumulator();
+        $this->calc->setResult($result);
+        $this->calc->setAccumulator($value);
+    }
+
+    /**
+     * @param string $action
+     * @throws Exception
+     */
+    public function operator(string $action)
+    {
+        $this->calc->setOperator($action);
+        $this->calc->setInput($this->getAccumulator());
+        $this->calc->setAccumulator(Calculator::INIT_VALUE);
+    }
+
+    /**
+     * @param $result
+     * @param $operator
+     * @param $accumulate
+     * @throws Exception
+     */
+    public function calculate() {
+        $firstOperand = $this->getInput();
+        $operator = $this->calc->getOperator();
+        $secondOperand = $this->getAccumulator();
+        $input = $firstOperand . $operator . $secondOperand;
+        $this->calc->setInput($input);
+
+        $resultCalcul = floatval($firstOperand) + floatval($secondOperand);
+        $this->calc->setResult($resultCalcul);
     }
 
 }

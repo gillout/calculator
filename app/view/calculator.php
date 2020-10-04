@@ -10,6 +10,7 @@ $result = isset($result) ? $result : '0';
     <link rel="stylesheet" href="/css/calculator.css">
 </head>
 <body>
+<h1>Calculator</h1>
 <div class="calculator">
     <div class="screens">
         <div class="input">
