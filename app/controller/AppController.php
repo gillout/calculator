@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-use App\Model\Calculator;
 use App\Model\CalculatorManager;
 use Exception;
 
@@ -78,42 +77,20 @@ class AppController
      */
     public function action(string $action)
     {
-        $result = '';
-        $input = '';
         switch ($action) {
             case 'clear':
                 $this->manager->reset();
-                $result = $this->manager->getResult();
                 break;
-            case 'plus':
-                $this->manager->operator(Calculator::PLUS);
-                $result = $this->manager->getResult();
-                $input = $this->manager->getInput();
-                break;
-            case 'minus':
-                $this->manager->operator(Calculator::MINUS);
-                $result = $this->manager->getResult();
-                $input = $this->manager->getInput();
-                break;
-            case 'times':
-                $this->manager->operator(Calculator::TIMES);
-                $result = $this->manager->getResult();
-                $input = $this->manager->getInput();
-                break;
-            case 'divide':
-                $this->manager->operator(Calculator::DIVIDE);
-                $result = $this->manager->getResult();
-                $input = $this->manager->getInput();
+            case 'plus':case 'minus':case 'times':case 'divide':
+                $this->manager->operator($action);
                 break;
             case 'equals':
                 $this->manager->calculate();
-                $result = $this->manager->getResult();
-                $input =$this->manager->getInput();
                 break;
             default:
                 throw new Exception('La fonction n\'est pas encore implémentée');
         }
-        $this->render($result, $input);
+        $this->index();
     }
 
 }

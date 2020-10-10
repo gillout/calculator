@@ -103,42 +103,59 @@ class CalculatorManager
     }
 
     /**
-     * @param $value
+     * Sauvegarde l'opérateur et initialise l'accumulateur
+     * @param string $operator
      * @throws Exception
      */
-    public function accuToResult($value)
+    public function operator(string $operator)
     {
-        $result = $this->calc->getAccumulator();
-        $this->calc->setResult($result);
-        $this->calc->setAccumulator($value);
-    }
-
-    /**
-     * @param string $action
-     * @throws Exception
-     */
-    public function operator(string $action)
-    {
-        $this->calc->setOperator($action);
-        $this->calc->setInput($this->getAccumulator());
+        $this->calc->setInput($this->calc->getAccumulator());
+        switch ($operator) {
+            case 'plus':
+                $this->calc->setOperator('+');
+                break;
+            case 'minus':
+                $this->calc->setOperator('-');
+                break;
+            case 'times':
+                $this->calc->setOperator('*');
+                break;
+            case 'divide':
+                $this->calc->setOperator('/');
+                break;
+            default:
+        }
         $this->calc->setAccumulator(Calculator::INIT_VALUE);
     }
 
     /**
-     * @param $result
+     * Effectue une opération simple (addition, soustraction, multiplication, division)
      * @param $operator
-     * @param $accumulate
      * @throws Exception
      */
-    public function calculate() {
-        $firstOperand = $this->getInput();
+    public function calculate()
+    {
         $operator = $this->calc->getOperator();
-        $secondOperand = $this->getAccumulator();
-        $input = $firstOperand . $operator . $secondOperand;
-        $this->calc->setInput($input);
-
-        $resultCalcul = floatval($firstOperand) + floatval($secondOperand);
-        $this->calc->setResult($resultCalcul);
+        $firstOperand = floatval($this->calc->getInput());
+        $secondOperand = floatval($this->calc->getAccumulator());
+        $result = 0;
+        switch ($operator) {
+            case '+':
+                $result = $firstOperand + $secondOperand;
+                break;
+            case '-':
+                $result = $firstOperand - $secondOperand;
+                break;
+            case '*':
+                $result = $firstOperand * $secondOperand;
+                break;
+            case '/':
+                $result = $firstOperand / $secondOperand;
+                break;
+            default:
+        }
+        $this->calc->setInput($this->getInput() . $this->calc->getOperator() . $this->calc->getAccumulator());
+        $this->calc->setAccumulator(round($result, 8));
     }
 
 }
