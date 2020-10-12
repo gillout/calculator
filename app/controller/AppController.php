@@ -81,11 +81,18 @@ class AppController
             case 'clear':
                 $this->manager->reset();
                 break;
-            case 'plus':case 'minus':case 'times':case 'divide':
+            case 'plus':
+                case 'minus':
+                    case 'times':
+                        case 'divide':
                 $this->manager->operator($action);
                 break;
             case 'equals':
-                $this->manager->calculate();
+                if ($this->manager->getAccumulator() == 0) {
+                    $this->error('Division par zéro impossible');
+                } else {
+                    $this->manager->calculate();
+                }
                 break;
             default:
                 throw new Exception('La fonction n\'est pas encore implémentée');

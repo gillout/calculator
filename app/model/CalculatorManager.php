@@ -112,16 +112,16 @@ class CalculatorManager
         $this->calc->setInput($this->calc->getAccumulator());
         switch ($operator) {
             case 'plus':
-                $this->calc->setOperator('+');
+                $this->calc->setOperator(Calculator::PLUS);
                 break;
             case 'minus':
-                $this->calc->setOperator('-');
+                $this->calc->setOperator(Calculator::MINUS);
                 break;
             case 'times':
-                $this->calc->setOperator('*');
+                $this->calc->setOperator(Calculator::TIMES);
                 break;
             case 'divide':
-                $this->calc->setOperator('/');
+                $this->calc->setOperator(Calculator::DIVIDE);
                 break;
             default:
         }
@@ -140,16 +140,16 @@ class CalculatorManager
         $secondOperand = floatval($this->calc->getAccumulator());
         $result = 0;
         switch ($operator) {
-            case '+':
+            case Calculator::PLUS:
                 $result = $firstOperand + $secondOperand;
                 break;
-            case '-':
+            case Calculator::MINUS:
                 $result = $firstOperand - $secondOperand;
                 break;
-            case '*':
+            case Calculator::TIMES:
                 $result = $firstOperand * $secondOperand;
                 break;
-            case '/':
+            case Calculator::DIVIDE:
                 $result = $firstOperand / $secondOperand;
                 break;
             default:
