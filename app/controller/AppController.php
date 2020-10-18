@@ -80,25 +80,26 @@ class AppController
         switch ($action) {
             case 'clear':
                 $this->manager->reset();
+                $this->index();
                 break;
             case 'plus':
             case 'minus':
             case 'times':
             case 'divide':
                 $this->manager->operator($action);
+                $this->index();
                 break;
             case 'equals':
                 try {
                     $this->manager->calculate();
+                    $this->index();
                 } catch (Exception $e) {
                     $this->error($e->getMessage());
-                    die;
                 }
                 break;
             default:
                 throw new Exception('La fonction n\'est pas encore implémentée');
         }
-        $this->index();
     }
 
 }

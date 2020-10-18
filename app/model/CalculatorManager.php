@@ -111,20 +111,10 @@ class CalculatorManager
     public function operator(string $operator)
     {
         $this->calc->setInput($this->calc->getAccumulator());
-        switch ($operator) {
-            case 'plus':
-                $this->calc->setOperator(Calculator::PLUS);
-                break;
-            case 'minus':
-                $this->calc->setOperator(Calculator::MINUS);
-                break;
-            case 'times':
-                $this->calc->setOperator(Calculator::TIMES);
-                break;
-            case 'divide':
-                $this->calc->setOperator(Calculator::DIVIDE);
-                break;
-            default:
+        foreach (CalculatorManager::INPUT_CONTROLS as $key => $value) {
+            if ($operator === $key) {
+                $this->calc->setOperator($value);
+            }
         }
         $this->calc->setAccumulator(Calculator::INIT_VALUE);
     }
@@ -151,7 +141,6 @@ class CalculatorManager
                 $result = $firstOperand * $secondOperand;
                 break;
             case Calculator::DIVIDE:
-                // Exception à créer et à gérer plus haut
                 if ($secondOperand == 0) {
                     throw new Exception('Division par zéro impossible');
                 } else {
