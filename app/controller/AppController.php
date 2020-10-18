@@ -82,16 +82,17 @@ class AppController
                 $this->manager->reset();
                 break;
             case 'plus':
-                case 'minus':
-                    case 'times':
-                        case 'divide':
+            case 'minus':
+            case 'times':
+            case 'divide':
                 $this->manager->operator($action);
                 break;
             case 'equals':
-                if ($this->manager->getAccumulator() == 0) {
-                    $this->error('Division par zéro impossible');
-                } else {
+                try {
                     $this->manager->calculate();
+                } catch (Exception $e) {
+                    $this->error($e->getMessage());
+                    die;
                 }
                 break;
             default:

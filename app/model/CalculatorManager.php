@@ -5,6 +5,7 @@ namespace App\Model;
 
 use App\Helper\NumericHelper;
 use Exception;
+use http\Message;
 
 /**
  * Classe CalculatorManager, pilote la calculatrice.
@@ -150,7 +151,12 @@ class CalculatorManager
                 $result = $firstOperand * $secondOperand;
                 break;
             case Calculator::DIVIDE:
-                $result = $firstOperand / $secondOperand;
+                // Exception à créer et à gérer plus haut
+                if ($secondOperand == 0) {
+                    throw new Exception('Division par zéro impossible');
+                } else {
+                    $result = $firstOperand / $secondOperand;
+                }
                 break;
             default:
         }
