@@ -89,17 +89,13 @@ class AppController
                     $this->manager->operator($action);
                     break;
                 case 'equals':
-                    try {
-                        $this->manager->calculate();
-                    } catch (Exception $exception1) {
-                        $this->error($exception1->getMessage());
-                    }
+                    $this->manager->calculate();
                     break;
                 default:
             }
             $this->index();
-        } catch (Exception $exception2) {
-            $this->error($exception2->getMessage());
+        } catch (Exception $e) {
+            $this->error($e->getMessage());
         }
     }
 

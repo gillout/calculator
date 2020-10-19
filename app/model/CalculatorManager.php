@@ -137,12 +137,12 @@ class CalculatorManager
                 break;
             case Calculator::DIVIDE:
                 if ($secondOperand == 0) {
-                    throw $exception1 = new Exception('Division par zéro impossible');
+                    throw $e = new Exception('Division par zéro impossible');
                 }
                 $result = $firstOperand / $secondOperand;
                 break;
             default:
-                throw $exception2 = new Exception('La fonction n\'est pas encore implémentée');
+                throw $e = new Exception('La fonction n\'est pas encore implémentée');
         }
         $this->calc->setInput($this->getInput() . $this->calc->getOperator() . $this->calc->getAccumulator());
         $this->calc->setAccumulator(round($result, 8));
