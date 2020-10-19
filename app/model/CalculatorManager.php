@@ -5,7 +5,6 @@ namespace App\Model;
 
 use App\Helper\NumericHelper;
 use Exception;
-use http\Message;
 
 /**
  * Classe CalculatorManager, pilote la calculatrice.
@@ -111,11 +110,7 @@ class CalculatorManager
     public function operator(string $operator)
     {
         $this->calc->setInput($this->calc->getAccumulator());
-        foreach (CalculatorManager::INPUT_CONTROLS as $key => $value) {
-            if ($operator === $key) {
-                $this->calc->setOperator($value);
-            }
-        }
+        $this->calc->setOperator(CalculatorManager::INPUT_CONTROLS[$operator]);
         $this->calc->setAccumulator(Calculator::INIT_VALUE);
     }
 
@@ -142,12 +137,12 @@ class CalculatorManager
                 break;
             case Calculator::DIVIDE:
                 if ($secondOperand == 0) {
-                    throw new Exception('Division par zéro impossible');
-                } else {
-                    $result = $firstOperand / $secondOperand;
+                    throw $exception1 = new Exception('Division par zéro impossible');
                 }
+                $result = $firstOperand / $secondOperand;
                 break;
             default:
+                throw $exception2 = new Exception('La fonction n\'est pas encore implémentée');
         }
         $this->calc->setInput($this->getInput() . $this->calc->getOperator() . $this->calc->getAccumulator());
         $this->calc->setAccumulator(round($result, 8));
