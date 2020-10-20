@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-use App\Model\Calculator;
 use App\Model\CalculatorManager;
 use Exception;
 
@@ -65,9 +64,8 @@ class AppController
     {
         try {
             $this->manager->append($value);
-            $chaine = $this->manager->getAccumulator();
-            $this->index($chaine);
-        } catch(Exception $e) {
+            $this->index();
+        } catch (Exception $e) {
             $this->error($e->getMessage());
         }
     }
@@ -75,15 +73,30 @@ class AppController
     /**
      * Lance une action (opération, égal, pourcentage, ...)
      * @param string $action
+     * @throws Exception
      */
     public function action(string $action)
     {
-        switch($action) {
-            case 'clear';
-                $this->manager->reset();
-                break;
-            default;
+        try {
+            switch ($action) {
+                case 'clear':
+                    $this->manager->reset();
+                    break;
+                case 'plus':
+                case 'minus':
+                case 'times':
+                case 'divide':
+                    $this->manager->operator($action);
+                    break;
+                case 'equals':
+                    $this->manager->calculate();
+                    break;
+                default:
+            }
+            $this->index();
+        } catch (Exception $e) {
+            $this->error($e->getMessage());
         }
-        $this->index();
     }
+
 }

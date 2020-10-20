@@ -95,11 +95,57 @@ class CalculatorManager
      */
     public function reset()
     {
-        $this->calc->setResult(Calculator::RESULT_STATE);
+        $this->calc->setResult(Calculator::INIT_VALUE);
         $this->calc->setInput('');
         $this->calc->setAccumulator(Calculator::INIT_VALUE);
         $this->calc->setOperator(Calculator::OPERATOR_INIT_VALUE);
         $this->calc->setState(Calculator::ACCUMULATE_STATE);
+    }
+
+    /**
+     * Sauvegarde l'opérateur et initialise l'accumulateur
+     * @param string $operator
+     * @throws Exception
+     */
+    public function operator(string $operator)
+    {
+        $this->calc->setInput($this->calc->getAccumulator());
+        $this->calc->setOperator(CalculatorManager::INPUT_CONTROLS[$operator]);
+        $this->calc->setAccumulator(Calculator::INIT_VALUE);
+    }
+
+    /**
+     * Effectue une opération simple (addition, soustraction, multiplication, division)
+     * @param $operator
+     * @throws Exception
+     */
+    public function calculate()
+    {
+        $operator = $this->calc->getOperator();
+        $firstOperand = floatval($this->calc->getInput());
+        $secondOperand = floatval($this->calc->getAccumulator());
+        $result = 0;
+        switch ($operator) {
+            case Calculator::PLUS:
+                $result = $firstOperand + $secondOperand;
+                break;
+            case Calculator::MINUS:
+                $result = $firstOperand - $secondOperand;
+                break;
+            case Calculator::TIMES:
+                $result = $firstOperand * $secondOperand;
+                break;
+            case Calculator::DIVIDE:
+                if ($secondOperand == 0) {
+                    throw new Exception('Division par zéro impossible');
+                }
+                $result = $firstOperand / $secondOperand;
+                break;
+            default:
+                throw new Exception('La fonction n\'est pas encore implémentée');
+        }
+        $this->calc->setInput($this->getInput() . $this->calc->getOperator() . $this->calc->getAccumulator());
+        $this->calc->setAccumulator(round($result, 8));
     }
 
 }

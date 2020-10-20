@@ -131,7 +131,7 @@ class Calculator
 
     /**
      * Renvoie l'opérateur courant
-     * @return string
+     * @return string|null
      */
     public function getOperator(): ?string
     {
