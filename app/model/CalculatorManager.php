@@ -110,21 +110,7 @@ class CalculatorManager
     public function operator(string $operator)
     {
         $this->calc->setInput($this->calc->getAccumulator());
-        switch ($operator) {
-            case 'plus':
-                $this->calc->setOperator('+');
-                break;
-            case 'minus':
-                $this->calc->setOperator('-');
-                break;
-            case 'times':
-                $this->calc->setOperator('*');
-                break;
-            case 'divide':
-                $this->calc->setOperator('/');
-                break;
-            default:
-        }
+        $this->calc->setOperator(CalculatorManager::INPUT_CONTROLS[$operator]);
         $this->calc->setAccumulator(Calculator::INIT_VALUE);
     }
 
@@ -140,21 +126,34 @@ class CalculatorManager
         $secondOperand = floatval($this->calc->getAccumulator());
         $result = 0;
         switch ($operator) {
-            case '+':
+            case Calculator::PLUS:
                 $result = $firstOperand + $secondOperand;
                 break;
-            case '-':
+            case Calculator::MINUS:
                 $result = $firstOperand - $secondOperand;
                 break;
-            case '*':
+            case Calculator::TIMES:
                 $result = $firstOperand * $secondOperand;
                 break;
-            case '/':
+            case Calculator::DIVIDE:
+                if ($secondOperand == 0) {
+                    throw new Exception('Division par zéro impossible');
+                }
                 $result = $firstOperand / $secondOperand;
                 break;
             default:
+                throw new Exception('La fonction n\'est pas encore implémentée');
         }
         $this->calc->setInput($this->getInput() . $this->calc->getOperator() . $this->calc->getAccumulator());
+        $this->calc->setAccumulator(round($result, 8));
+    }
+
+    /**
+     * Effectue le pourcentage du dernier opérande
+     */
+    public function percentage()
+    {
+        $result = (floatval($this->calc->getAccumulator())) * 1 / 100;
         $this->calc->setAccumulator(round($result, 8));
     }
 
