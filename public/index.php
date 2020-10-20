@@ -20,7 +20,12 @@ if (array_key_exists('value', $_POST)) {
 }
 // CAS 2 : un opérateur est envoyé
 elseif (array_key_exists('action', $_POST)) {
-    $controller->action($_POST['action']);
+    try {
+        $controller->action($_POST['action']);
+    } catch (Exception $e) {
+        $controller->error($e->getMessage());
+    }
+
 }
 // CAS PAR DEFAUT : affichage de la calculatrice
 else {
