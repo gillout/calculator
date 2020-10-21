@@ -77,20 +77,29 @@ class AppController
      */
     public function action(string $action)
     {
-        switch ($action) {
-            case 'clear':
-                $this->manager->reset();
-                break;
-            case 'plus':case 'minus':case 'times':case 'divide':
-                $this->manager->operator($action);
-                break;
-            case 'equals':
-                $this->manager->calculate();
-                break;
-            default:
-                throw new Exception('La fonction n\'est pas encore implémentée');
+        try {
+            switch ($action) {
+                case 'clear':
+                    $this->manager->reset();
+                    break;
+                case 'plus':
+                case 'minus':
+                case 'times':
+                case 'divide':
+                    $this->manager->operator($action);
+                    break;
+                case 'equals':
+                    $this->manager->calculate();
+                    break;
+                case 'percnt':
+                    $this->manager->percentage();
+                    break;
+                default:
+            }
+            $this->index();
+        } catch (Exception $e) {
+            $this->error($e->getMessage());
         }
-        $this->index();
     }
 
 }
