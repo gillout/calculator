@@ -153,7 +153,7 @@ class CalculatorManager
      */
     public function percentage()
     {
-        $result = (floatval($this->calc->getAccumulator())) * 1 / 100;
+        $result = (floatval($this->calc->getAccumulator())) / 100;
         $this->calc->setAccumulator(round($result, 8));
     }
 

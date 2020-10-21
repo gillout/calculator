@@ -93,6 +93,7 @@ class AppController
                     break;
                 case 'percnt':
                     $this->manager->percentage();
+                    break;
                 default:
             }
             $this->index();
