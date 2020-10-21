@@ -156,5 +156,5 @@ class CalculatorManager
         $result = (floatval($this->calc->getAccumulator())) / 100;
         $this->calc->setAccumulator(round($result, 8));
     }
-
+  
 }
