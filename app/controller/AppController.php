@@ -91,6 +91,9 @@ class AppController
                 case 'equals':
                     $this->manager->calculate();
                     break;
+                case 'percnt':
+                    $this->manager->percentage();
+                    break;
                 default:
             }
             $this->index();

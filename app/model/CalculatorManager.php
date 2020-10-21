@@ -148,4 +148,13 @@ class CalculatorManager
         $this->calc->setAccumulator(round($result, 8));
     }
 
+    /**
+     * Effectue le pourcentage du dernier opérande
+     */
+    public function percentage()
+    {
+        $result = (floatval($this->calc->getAccumulator())) / 100;
+        $this->calc->setAccumulator(round($result, 8));
+    }
+  
 }
