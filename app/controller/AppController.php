@@ -88,6 +88,9 @@ class AppController
                 case 'divide':
                     $this->manager->operator($action);
                     break;
+                case 'middot':
+                    $this->manager->middot($action);
+                    break;
                 case 'equals':
                     $this->manager->calculate();
                     break;
