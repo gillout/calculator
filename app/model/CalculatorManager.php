@@ -156,5 +156,18 @@ class CalculatorManager
         $result = (floatval($this->calc->getAccumulator())) / 100;
         $this->calc->setAccumulator(round($result, 8));
     }
-  
+
+    /**
+     * Ajoute le point à l'accumulateur si celui-ci n'en contient pas déjà un
+     * @throws Exception
+     */
+    public function middot()
+    {
+        $accumulator = $this->calc->getAccumulator();
+        if (is_numeric(strpos($accumulator, '.'))) {
+            throw new Exception('L\'accumulateur contient déjà un point');
+        }
+        $this->calc->setAccumulator($accumulator . '.');
+    }
+
 }
