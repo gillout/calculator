@@ -116,7 +116,6 @@ class CalculatorManager
 
     /**
      * Effectue une opération simple (addition, soustraction, multiplication, division)
-     * @param $operator
      * @throws Exception
      */
     public function calculate()
