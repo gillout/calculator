@@ -89,7 +89,7 @@ class AppController
                     $this->manager->operator($action);
                     break;
                 case 'middot':
-                    $this->manager->middot($action);
+                    $this->manager->middot();
                     break;
                 case 'equals':
                     $this->manager->calculate();

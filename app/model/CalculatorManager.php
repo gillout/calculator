@@ -159,10 +159,9 @@ class CalculatorManager
 
     /**
      * Ajoute le point à l'accumulateur si celui-ci n'en contient pas déjà un
-     * @param $action
      * @throws Exception
      */
-    public function middot($action)
+    public function middot()
     {
         $accumulator = $this->calc->getAccumulator();
         if (is_numeric(strpos($accumulator, '.'))) {
