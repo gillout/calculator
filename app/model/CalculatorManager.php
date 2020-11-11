@@ -176,6 +176,9 @@ class CalculatorManager
     public function plusMinus()
     {
         $accumulator = $this->calc->getAccumulator();
+        if ($accumulator == '0') {
+            throw new Exception('0 ne peut pas être négatif');
+        }
         if (!is_numeric(strpos($accumulator, '-'))) {
             $this->calc->setAccumulator('-' . $accumulator);
         } else {
