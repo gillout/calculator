@@ -177,7 +177,7 @@ class CalculatorManager
     {
         $accumulator = $this->calc->getAccumulator();
         if ($accumulator == '0') {
-            throw new Exception('0 ne peut pas être négatif');
+            throw new Exception('L\'accumulateur contient zéro');
         }
         if (!is_numeric(strpos($accumulator, '-'))) {
             $this->calc->setAccumulator('-' . $accumulator);
