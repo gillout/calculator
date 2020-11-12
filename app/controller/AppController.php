@@ -91,6 +91,9 @@ class AppController
                 case 'middot':
                     $this->manager->middot();
                     break;
+                case 'plusmn':
+                    $this->manager->plusMinus();
+                    break;
                 case 'equals':
                     $this->manager->calculate();
                     break;

@@ -169,4 +169,21 @@ class CalculatorManager
         $this->calc->setAccumulator($accumulator . '.');
     }
 
+    /**
+     * Ajoute le signe moins au début de l'accumulateur s'il n'est pas déjà présent, sinon l'envève
+     * Permet de passer d'un nombre négatif à un nombre positif, et vice-versa
+     */
+    public function plusMinus()
+    {
+        $accumulator = $this->calc->getAccumulator();
+        if ($accumulator == '0') {
+            throw new Exception('L\'accumulateur contient zéro');
+        }
+        if (!is_numeric(strpos($accumulator, '-'))) {
+            $this->calc->setAccumulator('-' . $accumulator);
+        } else {
+            $this->calc->setAccumulator(str_replace('-', '', $accumulator));
+        }
+    }
+
 }
